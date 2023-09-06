@@ -1,0 +1,18 @@
+spring:
+  application:
+    name : words-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/words
+    username: postgres
+    password: password
+  jpa:
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      dll-auto:
+        none
+  sql:
+    init:
+      mode: always
+server:
+  port: 8082

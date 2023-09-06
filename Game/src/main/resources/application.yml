@@ -1,0 +1,14 @@
+spring:
+  application:
+    name : game-service
+  servlet:
+    session:
+      timeout: 31536000
+server:
+  port: 8081
+resilience4j:
+  circuitbreaker:
+    instances:
+      randomWordCircuitBreaker:
+        minimumNumberOfCalls: 3
+        slidingWindowSize: 6

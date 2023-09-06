@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS  words (
+    id SERIAL NOT NULL PRIMARY KEY,
+    word VARCHAR (255),
+    UNIQUE(word),
+    UNIQUE(id)
+);
