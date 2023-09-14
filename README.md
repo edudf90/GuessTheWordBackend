@@ -1,11 +1,11 @@
-#Guess the word
+# Guess the word
 
 This is the backend for a word guessing game I made as an exercise using Spring boot and the Spring microservices environment. 
 The project is composed by two microservices: One responsible for word generation and one for managing the game.
 I wanted to exercise some microservice design patterns like service discovery and circuitbreakers in Spring.
 
 
-#Service discovery 
+# Service discovery 
 
 This project uses Eureka for service discovery. 
 I created a Spring boot project that uses the eureka-server dependency and configured the server to route the calls to the microservices instances (which are configured to use the eureka-client dependency).
@@ -13,12 +13,12 @@ As a result of using service discovery, I don't have to worry about configuring 
 Thus, service discovery makes it easier to add, remove instances of microservices and also to change the hardware in which the instance is running.
 
 
-#Word microservice
+# Word microservice
 
 A simple microservice that returns one randomly chosen word from a Postgres database.
 
 
-#Game management microservice
+# Game management microservice
 
 This microservice offers two main API calls to manage a word guessing game.
 One of the calls starts a new game, storing a new game state in a user session managed by Redis.
@@ -27,7 +27,7 @@ The game state consists of the number of tries left, the streak of correctly gue
 When the microservice needs to request a new word (when the user correctly guesses a word or starts a new game), it makes a request to the word microservice.
 
 
-#Circuit breaker
+# Circuit breaker
 
 For any reason, the word microservice may not return a fast reply when the game management microservice calls. 
 If this happens, we don't want the game management service to wait for a slow response or even worse, having the request denied after waiting.
@@ -35,19 +35,19 @@ To avoid this case, I've added a circuit breaker to call the word microservice, 
 To implement this I've added the Resilience4J dependency in the game management spring boot project, configured the circuit breaker and wrote the fallback method to be called.
 
 
-#Session management with Redis
+# Session management with Redis
 
 The game state is stored with Redis, an in memory key-value storage. For every session, Redis stores the current game state and current word to guess.
 Storing the session in a Redis database makes so the session information is not lost if we shut down the service instance. 
 Also, if we have multiple instances of the microservice running, having a separated session storage means that all instances will be able to read and write in the same storage. 
 
 
-#Docker containers
+# Docker containers
 
 In this project I used two docker containers: The Postgres database container; And the Redis storage container.
 
 
-#Points to improve
+# Points to improve
 
 Storage replication: As it is, both the Redis database and the Postgres one are single points of failure. One solution for this would be to have replicas of both storage servers to become active when the main server fails.
 
