@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import words.model.Word;
 import words.model.WordRepository;
+import words.service.WordsService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,19 +17,11 @@ import java.util.Random;
 @RequestMapping("words")
 public class WordsController {
 
-    public static final Word FALLBACK_WORD = new Word(0L, "Reserva");
     @Autowired
-    private WordRepository wordRepository;
-    private Random random = new Random();
+    private WordsService wordsService;
 
     @GetMapping("/randomword")
     public Word getRandomWord(){
-        Long maxId = wordRepository.count();
-        Long index = random.nextLong(maxId);
-        Optional<Word> selectedWord = wordRepository.findById(index);
-        if (!selectedWord.isPresent()){
-            return FALLBACK_WORD;
-        }
-        return selectedWord.get();
+        return wordsService.getRandomWord();
     }
 }
