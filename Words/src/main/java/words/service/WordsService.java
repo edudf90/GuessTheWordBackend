@@ -14,8 +14,13 @@ public class WordsService {
     public static final Word FALLBACK_WORD = new Word(0L, "Fallback");
     @Autowired
     private WordRepository wordRepository;
-    private Random random = new Random();
+    @Autowired
+    private Random random;
 
+    public WordsService(WordRepository wordRepository, Random random) {
+        this.wordRepository = wordRepository;
+        this.random = random;
+    }
 
     public Word getRandomWord(){
         Long maxId = wordRepository.count();

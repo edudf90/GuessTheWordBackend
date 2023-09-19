@@ -39,4 +39,6 @@ class WordsControllerTest {
             throw new RuntimeException(e);
         }
     }
+
+//.andExpect(status().isBadRequest());
 }
