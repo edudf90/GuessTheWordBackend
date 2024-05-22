@@ -49,6 +49,4 @@ In this project I used two docker containers: The Postgres database container; A
 
 # Points to improve
 
-Storage replication: As it is, both the Redis database and the Postgres one are single points of failure. One solution for this would be to have replicas of both storage servers to become active when the main server fails.
-
 Word selection: For simplicity, the algorithm I'm using for random word selection is assuming that the ids in the database are sequential and without any gaps between them (there's a fallback word that is returned in case of gaps). Perhaps a better way of doing this would be to mantain the list of ids in cache and select one of them at random to select the word from the database, this way we would still avoid loading all of the ids from the database everytime we need to choose one word and deal better with the gaps. 
